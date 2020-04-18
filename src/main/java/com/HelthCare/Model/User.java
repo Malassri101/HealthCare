@@ -1,6 +1,6 @@
-package com.HelthCare.HealthCare;
+package com.HelthCare.Model;
 
-public class user {
+public class User {
 	
 	public int u_id;
 	public String u_fname;
