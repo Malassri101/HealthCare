@@ -1,16 +1,20 @@
-package com.HelthCare.HealthCare;
+package com.HelthCare.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.HelthCare.Database.DatabaseClass;
+import com.HelthCare.Model.User;
+
 import java.sql.*;
 
 public class UserRepository {
-	Connection con = null;
+	//Connection con = null;
 	
-	List<user> users;
+	List<User> users;
 	public UserRepository() {
 		
-		String url = "Jdbc:mysql://localhost:3306/healthcare";
+	/*	String url = "Jdbc:mysql://localhost:3306/healthcare";
 		String username = "root";
 		String password = "";
 		try {
@@ -19,11 +23,11 @@ public class UserRepository {
 		}catch (Exception e) {
 			System.out.println(e);
 		}
-		
+		*/
 		
 		users = new ArrayList<>();
 		
-		user u1 = new user();
+		User u1 = new User();
 		u1.setU_id(0001);
 		u1.setU_fname("Supun");
 		u1.setU_lname("Madhawa");
@@ -36,7 +40,7 @@ public class UserRepository {
 		u1.setU_type("admin");
 		u1.setU_contact(07600000000);
 		
-		user u2 = new user();
+		User u2 = new User();
 		u2.setU_id(0002);
 		u2.setU_fname("Sahan");
 		u2.setU_lname("Malssri");
@@ -49,7 +53,7 @@ public class UserRepository {
 		u2.setU_type("patient");
 		u2.setU_contact(07700000000);
 		
-		user u3 = new user();
+		User u3 = new User();
 		u3.setU_id(0003);
 		u3.setU_fname("Kasun");
 		u3.setU_lname("Thilina");
@@ -68,14 +72,14 @@ public class UserRepository {
 		
 	}
 	
-	public List<user> getallUsers(){
-		List<user> users = new ArrayList<>();
+	public List<User> getallUsers(){
+		List<User> users = new ArrayList<>();
 		String sql = "select * from users";
 		try {
-			Statement st = con.createStatement();
+			Statement st = DatabaseClass.getDBconnection().createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()) {
-				user u = new user();
+				User u = new User();
 				
 				u.setU_id(rs.getInt(1));
 				u.setU_fname(rs.getString(2));
@@ -98,10 +102,10 @@ public class UserRepository {
 		
 		return users;
 	}
-	public user createUser(user u4) {
+	public User createUser(User u4) {
 		String insertSql = "INSERT INTO `users`(`u_id`, `u_fname`, `u_lname`, `u_age`, `u_address`, `u_sex`, `u_email`, `u_username`, `u_password`, `u_type`, `u_contact`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		try {
-			PreparedStatement st = con.prepareStatement(insertSql);
+			PreparedStatement st = DatabaseClass.getDBconnection().prepareStatement(insertSql);
 			st.setInt(1, u4.u_id);
 			st.setString(2, u4.u_fname);
 			st.setString(3, u4.u_lname);
@@ -124,11 +128,11 @@ public class UserRepository {
 		
 	}
 	
-	public void updateUser(user u5) {
+	public void updateUser(User u5) {
 		String sql = "UPDATE users SET u_fname = ? WHERE u_id = ?";
 		
 		try {
-			PreparedStatement st = con.prepareStatement(sql);
+			PreparedStatement st = DatabaseClass.getDBconnection().prepareStatement(sql);
 			st.setString(1,u5.getU_fname());
 			st.setInt(2,u5.getU_id());
 			
