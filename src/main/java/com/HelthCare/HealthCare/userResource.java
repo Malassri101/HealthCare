@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import com.HelthCare.Model.User;
 import com.HelthCare.Service.UserRepository;
 
-@Path("/users")
+@Path("/userss")
 public class UserResource {
 	
 	UserRepository ur = new UserRepository();
@@ -43,3 +43,4 @@ public class UserResource {
 	}
 	
 }
+
