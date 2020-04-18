@@ -42,5 +42,4 @@ public class UserResource {
 		return u5;
 	}
 	
-
 }
