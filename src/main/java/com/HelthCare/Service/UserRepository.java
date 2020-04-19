@@ -141,5 +141,23 @@ public class UserRepository {
 			System.out.println(e);
 		}
 	}
+	
+	public void deleteUser(int u_id) {
+		
+	       String sql =  "DELETE FROM users WHERE u_id = ?";
+	       String output = "";
+			
+			try {
+				PreparedStatement st = DatabaseClass.getDBconnection().prepareStatement(sql);
+				st.setInt(1,u_id);
+				st.executeUpdate();
+				
+				output = "Deleted succesfully";
+				
+			}
+			catch(Exception e) {
+				System.out.println(e);
+			}
+		}
 
 }
